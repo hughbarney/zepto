@@ -1,9 +1,8 @@
-/* header.h, Atto Emacs, Public Domain, Hugh Barney, 2016, Derived from: Anthony's Editor January 93 */
+/* header.h, Zepto Emacs, Public Domain, Hugh Barney, 2017, Derived from: Anthony's Editor January 93 */
 
 #include <stdlib.h>
 #include <stdarg.h>
 #include <assert.h>
-//#include <curses.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <ctype.h>
@@ -86,8 +85,7 @@ extern point_t segstart(buffer_t *, point_t, point_t);
 extern point_t segnext(buffer_t *, point_t, point_t);
 extern point_t upup(buffer_t *, point_t);
 extern point_t dndn(buffer_t *, point_t);
-//extern int getkey(keymap_t *, keymap_t **);
-char_t *get_key(keymap_t *, keymap_t **);
+extern char_t *get_key(keymap_t *, keymap_t **);
 extern int getinput(char *, char *, int, int);
 extern int growgap(buffer_t *, point_t);
 extern point_t movegap(buffer_t *, point_t);
@@ -119,4 +117,3 @@ extern void savebuffer(void);
 extern void killtoeol(void);
 extern buffer_t* new_buffer(void);
 extern window_t *new_window();
-extern void debug(char *, ...);

@@ -1,15 +1,9 @@
-#
-
 CC      = cc
-CFLAGS  = -O -g -Wall
-
+CFLAGS  = -O -Wall
 LD      = cc
-#LIBS    = -lncurses
-
 CP      = cp
 MV      = mv
 RM      = rm
-
 E       =
 O       = .o
 

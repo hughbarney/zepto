@@ -1,3 +1,8 @@
+/*
+ * raw.c, Zepto Emacs, Public Domain, Hugh Barney, 2017, Derived from: Anthony's Editor January 93
+ * emulate ncurses functions using raw ttyio and VT100 escape sequences
+ */
+
 #include <sys/ioctl.h>
 #include <termios.h>
 #include "header.h"
