@@ -1,0 +1,44 @@
+#
+
+CC      = cc
+CFLAGS  = -O -g -Wall
+
+LD      = cc
+#LIBS    = -lncurses
+
+CP      = cp
+MV      = mv
+RM      = rm
+
+E       =
+O       = .o
+
+OBJ     = raw$(O) command$(O) display$(O) gap$(O) key$(O) main$(O)
+
+zepto$(E) : $(OBJ)
+	$(LD) -o zepto$(E) $(OBJ)
+
+raw$(O): raw.c header.h raw.h
+	$(CC) $(CFLAGS) -c raw.c
+
+command$(O): command.c header.h raw.h
+	$(CC) $(CFLAGS) -c command.c
+
+display$(O): display.c header.h raw.h
+	$(CC) $(CFLAGS) -c display.c
+
+gap$(O): gap.c header.h raw.h
+	$(CC) $(CFLAGS) -c gap.c
+
+key$(O): key.c header.h raw.h
+	$(CC) $(CFLAGS) -c key.c
+
+main$(O): main.c header.h raw.h
+	$(CC) $(CFLAGS) -c main.c
+
+clean:
+	-$(RM) $(OBJ) zepto$(E)
+
+install:
+	-$(MV) zepto$(E) $(HOME)/bin
+
