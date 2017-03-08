@@ -21,16 +21,13 @@ keymap_t keymap[] = {
 	{"backspace delete-left    ", "\x7f", backsp },
 	{"C-h backspace            ", "\x08", backsp },
 	{"C-l                      ", "\x0C", redraw },
+	{"C-s search               ", "\x13", search },
 	{"esc v                    ", "\x1B\x76", pgup },
 	{"C-v                      ", "\x16", pgdown },
 	{"PgUp                     ", "\x1B\x5B\x35\x7E",pgup }, /* PgUp key */
 	{"PgDn                     ", "\x1B\x5B\x36\x7E", pgdown }, /* PgDn key */
 	{"esc < beg-of-buf         ", "\x1B\x3C", top },
 	{"esc > end-of-buf         ", "\x1B\x3E", bottom },
-	{"esc home, beg-of-buf     ", "\x1B\x1B\x4F\x48", top },
-	{"esc end, end-of-buf      ", "\x1B\x1B\x4F\x46", bottom },
-	{"esc up, beg-of-buf       ", "\x1B\x1B\x5B\x41", top },
-	{"esc down, end-of-buf     ", "\x1B\x1B\x5B\x42", bottom },
 	{"C-k kill-to-eol          ", "\x0B", killtoeol },
 	{"C-x C-s save-buffer      ", "\x18\x13", savebuffer },  
 	{"C-x C-c exit             ", "\x18\x03", quit_ask },

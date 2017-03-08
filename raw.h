@@ -20,6 +20,7 @@ char getch();
 void raw(void);
 void noraw(void);
 char *unctrl(char );
+void flushinp(void);
 
 #define FALSE 0
 #define TRUE !FALSE

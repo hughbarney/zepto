@@ -7,7 +7,7 @@ RM      = rm
 E       =
 O       = .o
 
-OBJ     = raw$(O) command$(O) display$(O) gap$(O) key$(O) main$(O)
+OBJ     = raw$(O) command$(O) display$(O) gap$(O) key$(O) search$(O) main$(O)
 
 zepto$(E) : $(OBJ)
 	$(LD) -o zepto$(E) $(OBJ)
@@ -26,6 +26,9 @@ gap$(O): gap.c header.h raw.h
 
 key$(O): key.c header.h raw.h
 	$(CC) $(CFLAGS) -c key.c
+
+search(O): search.c header.h raw.h
+	$(CC) $(CFLAGS) -c search.c
 
 main$(O): main.c header.h raw.h
 	$(CC) $(CFLAGS) -c main.c

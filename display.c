@@ -192,3 +192,4 @@ void dispmsg()
 	}
 	clrtoeol();
 }
+

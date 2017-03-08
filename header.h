@@ -117,3 +117,6 @@ extern void savebuffer(void);
 extern void killtoeol(void);
 extern buffer_t* new_buffer(void);
 extern window_t *new_window();
+extern void search(void);
+point_t search_forward(buffer_t *, point_t, char *);
+extern void display_search_result(point_t, int, char *, char *);

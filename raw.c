@@ -17,6 +17,7 @@ void clrtoeol() { addstr(CLREOL); }
 void standout() { addstr(STATUS_COLOR); }
 void standend() { addstr(TEXT_COLOR); }
 char getch() { return fgetc(stdin); }
+void flushinp() { fflush(stdin); }
 
 /*
  * simple buffer structure to append all escape sequences and output
