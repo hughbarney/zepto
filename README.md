@@ -52,6 +52,11 @@ Femto, Atto and Zepto is based on the public domain code of Anthony Howe's edito
     ue3.10         uemacs    171664    52.4K     16
     GNUEmacs       emacs   14632920   358.0k    186
 
+##Starting Zepto
+Zepto can only open one file at a time.  The filename to edit must be specified on the command line.
+
+    $ zepto filename
+
 ##Zepto Key Bindings
     C-A   begining-of-line
     C-B   backward-character
