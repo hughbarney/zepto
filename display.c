@@ -146,7 +146,7 @@ void display(window_t *wp)
 			if (j < 0)
 				j = 0;
 			++i;
-			addch('\r');  // new
+			move(i,j); /* specific to rawio, not in ncurses version */
 		}
 		++bp->b_epage;
 	}
@@ -192,4 +192,3 @@ void dispmsg()
 	}
 	clrtoeol();
 }
-
