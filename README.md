@@ -67,9 +67,8 @@ Femto, Atto and Zepto is based on the public domain code of Anthony Howe's edito
     C-M   Carrage Return
     C-N   next line
     C-P   previous line
-    C-R   search-backwards
+    C-S   search-forwards
     C-V   Page Down
-    C-W   Kill Region (Cut)
     C-X   CTRL-X command prefix
 
     M-<   Start of file
