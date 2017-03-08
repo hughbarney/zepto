@@ -15,10 +15,10 @@ window_t *curwp;
 
 int main(int argc, char **argv)
 {
-	if (argc != 2) fatal("usage: zepto filename\n");
-
 	initscr();
 	raw();
+
+	if (argc != 2) fatal("usage: zepto filename\n");
 	
 	curbp = new_buffer();
 	(void)insert_file(argv[1], FALSE);
@@ -44,11 +44,11 @@ int main(int argc, char **argv)
 			 * if first char of input is a control char then
 			 * key is not bound, except TAB and NEWLINE
 			 */
-			if (*input > 31 || *input == 0x0A || *input == 0x09)
+			if (*input > 31 || *input == 13 || *input == 9)
 				insert();
                         else {
 				fflush(stdin);
-				msg("not bound");
+				msg("Not bound");
 			}
 		}
 	}
@@ -63,6 +63,7 @@ int main(int argc, char **argv)
 void fatal(char *msg)
 {
 	fprintf(stderr, "\nzepto: %s\n", msg);
+	noraw();
 	exit(1);
 }
 
