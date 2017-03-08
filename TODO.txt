@@ -1,4 +1,0 @@
-make ENTER key work
-reset terminal and show cursor ?
-add search
-^X^F find file
