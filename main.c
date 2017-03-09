@@ -15,10 +15,9 @@ window_t *curwp;
 
 int main(int argc, char **argv)
 {
-	initscr();
 	raw();
-
 	if (argc != 2) fatal("usage: zepto filename\n");
+	initscr();	
 	
 	curbp = new_buffer();
 	(void)insert_file(argv[1], FALSE);
@@ -62,8 +61,8 @@ int main(int argc, char **argv)
 
 void fatal(char *msg)
 {
-	fprintf(stderr, "\nzepto: %s\n", msg);
 	noraw();
+	printf("\nzepto: %s\n", msg);
 	exit(1);
 }
 
