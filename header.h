@@ -17,6 +17,7 @@
 #define K_BUFFER_LENGTH 256
 #define TEMPBUF         512
 #define MIN_GAP_EXPAND  512
+#define NOMARK          -1
 
 typedef unsigned char char_t;
 typedef long point_t;
@@ -76,7 +77,6 @@ extern keymap_t *key_return;    /* Command key return */
 extern void fatal(char *);
 extern void msg(char *, ...);
 extern void display(window_t *);
-extern void display_char(char_t );
 extern void dispmsg(void);
 extern void modeline(window_t *);
 extern point_t lnstart(buffer_t *, point_t);
@@ -107,12 +107,9 @@ extern void quit(void);
 extern int yesno(int);
 extern void quit_ask(void);
 extern void redraw(void);
-extern void readfile(void);
-extern void insertfile(void);
 extern void right(void);
 extern void top(void);
 extern void up(void);
-extern void writefile(void);
 extern void savebuffer(void);
 extern void killtoeol(void);
 extern buffer_t* new_buffer(void);
@@ -120,3 +117,8 @@ extern window_t *new_window();
 extern void search(void);
 point_t search_forward(buffer_t *, point_t, char *);
 extern void display_search_result(point_t, int, char *, char *);
+extern void cut(void);
+extern void copy(void);
+extern void copy_cut(int);
+extern void paste(void);
+extern void set_mark(void);

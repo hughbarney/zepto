@@ -24,7 +24,6 @@ void flushinp() { fflush(stdin); }
  * before we write it out in one go by calling refresh().
  * This avoids flickering.
  */
-
 struct screen_buf {
 	char *buf;
 	int len;

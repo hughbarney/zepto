@@ -28,7 +28,7 @@ The small Emacs naming scheme appears to use sub-unit prefixes in decending orde
 
 In Defining Atto as the lowest functional Emacs I have had to consider the essential feature set that makes Emacs, 'Emacs'.  I have defined this point as a basic Emacs command set and key bindings; the ability to edit multiple files (buffers), and switch between them; edit the buffers in mutliple windows, cut, copy and paste; forward and reverse searching, a replace function and basic syntax hilighting. The proviso being that all this will fit in less than 2000 lines of C.
 
-Zepto has the smallest possible feature set to make a viable file editor. Zepto supports basic movement around the file, character insertion, deletion, backspace, line deletion and the ability to search for a text string.  Although Zepto uses a subset of the Emacs keyboard command set; it cant really be considered to be an Emacs in that it does not support the editing of multiple files in multiple windows.
+Zepto has the smallest possible feature set to make a viable file editor. Zepto supports basic movement around the file, character insertion, deletion, backspace, line deletion, cut, copy, paste and the ability to search for a text string.  Although Zepto uses a subset of the Emacs keyboard command set; it cant really be considered to be an Emacs in that it does not support the editing of multiple files in multiple windows.
 
 ##Derivation
 Femto, Atto and Zepto is based on the public domain code of Anthony Howe's editor (commonly known as Anthony's Editor or AE, [2]).  Rather than representing a file as a linked list of lines, the AE Editor uses the concept of a Buffer-Gap [4,5,6].  A Buffer-Gap editor stores the file in a single piece of contiguous memory with some extra unused space known as the buffer gap.  On character insertion and deletion the gap is first moved to the current point.  A character deletion then extends the gap by moving the gap pointer back by 1 OR the gap is reduced by 1 when a character is inserted.  The Buffer-Gap technique is elegant and significantly reduces the amount of code required to load a file, modify it and redraw the display.  The proof of this is seen when you consider that Atto supports almost the same command set that Pico supports,  but Pico requires almost 17 times the amount of code.
@@ -76,9 +76,9 @@ Zepto can only open one file at a time.  The filename to edit must be specified 
     C-V   Page Down
     C-X   CTRL-X command prefix
 
-    M-<   Start of file
-    M->   End of file
-    M-v   Page Up
+    esc-<   Start of file
+    esc->   End of file
+    esc-v   Page Up
 
     ^X^C  Exit. Any unsaved files will require confirmation.
     ^X^S  Save current buffer to disk, using the buffer's filename as the name of
@@ -99,6 +99,20 @@ Zepto can only open one file at a time.  The filename to edit must be specified 
     C-S at the search prompt will search forward, will wrap at end of the buffer
     ESC will escape from the search prompt and return to the point of the match
     C-G abort the search and return to point before the search started
+
+###Copying and moving
+    C-<spacebar> Set mark at current position
+    ^W     Delete region
+    ^Y     Yank back kill buffer at cursor
+    esc-w  Copy Region
+    esc-k  Kill Region
+
+A region is defined as the area between this mark and the current cursor position. The kill buffer is the text which has been most recently deleted or copied.
+
+Generally, the procedure for copying or moving text is:
+1. Mark out region using M-<spacebar> at the beginning and move the cursor to the end.
+2. Delete it (with ^W) or copy it (with M-W) into the kill buffer.
+3. Move the cursor to the desired location and yank it back (with ^Y).
 
 ##Copying
   Zepto code is released to the public domain.

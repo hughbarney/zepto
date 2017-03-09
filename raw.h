@@ -33,4 +33,3 @@ void flushinp(void);
 #define GOTOXY           "\033[%d;%dH"
 #define TEXT_COLOR       "\033[0m"
 #define STATUS_COLOR     "\033[7m"
-

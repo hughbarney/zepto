@@ -146,7 +146,8 @@ void display(window_t *wp)
 			if (j < 0)
 				j = 0;
 			++i;
-			move(i,j); /* specific to rawio, not in ncurses version */
+			//(*p == '\n' ? addch('\r') : move(i,j)); /* specific to rawio, not in ncurses version */
+			(*p == '\n' ? addch('\r') : addstr("\r\n"));
 		}
 		++bp->b_epage;
 	}

@@ -29,7 +29,6 @@ int main(int argc, char **argv)
 	if (!growgap(curbp, CHUNK))
 		fatal("Failed to allocate required memory.\n");
 
-	top();
 	key_map = keymap;
 
 	while (!done) {
