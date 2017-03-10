@@ -38,10 +38,7 @@ int main(int argc, char **argv)
 		if (key_return != NULL) {
 			(key_return->func)();
 		} else {
-			/*
-			 * if first char of input is a control char then
-			 * key is not bound, except TAB and NEWLINE
-			 */
+			/* allow TAB and NEWLINE, any other control char is 'Not Bound' */
 			if (*input > 31 || *input == 13 || *input == 9)
 				insert();
                         else {

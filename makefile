@@ -37,5 +37,5 @@ clean:
 	-$(RM) $(OBJ) zepto$(E)
 
 install:
-	-$(MV) zepto$(E) $(HOME)/bin
-
+	-$(CP) zepto$(E) $(HOME)/bin/zep
+	-$(MV) zepto$(E) $(HOME)/bin/zepto
