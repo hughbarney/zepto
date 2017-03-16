@@ -125,3 +125,4 @@ Generally, the procedure for copying or moving text is:
     [4] Jonathan Payne, Buffer-Gap: http://ned.rubyforge.org/doc/buffer-gap.txt
     [5] Anthony Howe,  http://ned.rubyforge.org/doc/editor-101.txt
     [6] Anthony Howe, http://ned.rubyforge.org/doc/editor-102.txt
+
