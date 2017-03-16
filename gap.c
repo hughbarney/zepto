@@ -22,11 +22,9 @@ int growgap(buffer_t *bp, point_t n)
 	newlen = buflen + n * sizeof (char_t);
 
 	if (buflen == 0) {
-		if (newlen < 0 || MAX_SIZE_T < newlen)
-			fatal("Failed to allocate required memory.\n");
+		if (newlen < 0 || MAX_SIZE_T < newlen) fatal("Failed to allocate required memory.\n");
 		new = (char_t*) malloc((size_t) newlen);
-		if (new == NULL)			
-			fatal("Failed to allocate required memory.\n");	/* Cannot edit a file without a buffer. */
+		if (new == NULL) fatal("Failed to allocate required memory.\n");
 	} else {
 		if (newlen < 0 || MAX_SIZE_T < newlen) {
 			msg("Failed to allocate required memory");
@@ -73,8 +71,7 @@ point_t movegap(buffer_t *bp, point_t offset)
 /* Given a buffer offset, convert it to a pointer into the buffer */
 char_t * ptr(buffer_t *bp, register point_t offset)
 {
-	if (offset < 0)
-		return (bp->b_buf);
+	if (offset < 0) return (bp->b_buf);
 	return (bp->b_buf+offset + (bp->b_buf + offset < bp->b_gap ? 0 : bp->b_egap-bp->b_gap));
 }
 
@@ -85,29 +82,20 @@ point_t pos(buffer_t *bp, register char_t *cp)
 	return (cp - bp->b_buf - (cp < bp->b_egap ? 0 : bp->b_egap - bp->b_gap));
 }
 
-int save(char *fn)
+void save()
 {
 	FILE *fp;
 	point_t length;
-		
-	fp = fopen(fn, "w");
-	if (fp == NULL) {
-		msg("Failed to open file \"%s\".", fn);
-		return (FALSE);
-	}
+
+	fp = fopen(curbp->b_fname, "w");
+	if (fp == NULL) msg("Failed to open file \"%s\".", curbp->b_fname);
 	(void) movegap(curbp, (point_t) 0);
 	length = (point_t) (curbp->b_ebuf - curbp->b_egap);
-	if (fwrite(curbp->b_egap, sizeof (char), (size_t) length, fp) != length) {
-		msg("Failed to write file \"%s\".", fn);
-		return (FALSE);
-	}
-	if (fclose(fp) != 0) {
-		msg("Failed to close file \"%s\".", fn);
-		return (FALSE);
-	}
+	if (fwrite(curbp->b_egap, sizeof (char), (size_t) length, fp) != length) 
+		msg("Failed to write file \"%s\".", curbp->b_fname);
+	fclose(fp);
 	curbp->b_flags &= ~B_MODIFIED;
-	msg("File \"%s\" %ld bytes saved.", fn, pos(curbp, curbp->b_ebuf));
-	return (TRUE);
+	msg("File \"%s\" %ld bytes saved.", curbp->b_fname, pos(curbp, curbp->b_ebuf));
 }
 
 /* reads file into buffer at point */

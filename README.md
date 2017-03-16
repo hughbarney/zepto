@@ -1,9 +1,9 @@
 #Zepto Emacs
-Smallest usable Editor in less than 1100 lines of C.
+Smallest usable Editor in less than 1000 lines of C.
 
 Zepto Emacs is the smallest in a family of Emacs type editors inspired by MicroEmacs, Nano, Pico and my earlier project known as Perfect Emacs [1].
 
-* Zepto is a single window minimal editor in less than 1100 lines of C that uses VT100 escape sequences instead of ncurses.
+* Zepto is a single window minimal editor in less than 1000 lines of C that uses VT100 escape sequences instead of ncurses.
 * Atto  is the smallest fuctional Emacs in less than 2000 lines of C.
 * FemtoEmacs is an Atto based Emacs with the FemtoLisp extension language.
 

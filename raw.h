@@ -1,7 +1,5 @@
-/*
- * raw.h, Zepto Emacs, Public Domain, Hugh Barney, 2017, Derived from: Anthony's Editor January 93
- * emulate ncurses functions using raw ttyio and VT100 escape sequences
- */
+/* raw.h, Zepto Emacs, Public Domain, Hugh Barney, 2017, Derived from: Anthony's Editor January 93  *
+ * emulate ncurses functions using raw ttyio and VT100 escape sequences                             */
 
 extern int LINES;
 extern int COLS;

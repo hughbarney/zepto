@@ -38,23 +38,15 @@ typedef struct buffer_t
 	char_t *b_ebuf;           /* end of buffer */
 	char_t *b_gap;            /* start of gap */
 	char_t *b_egap;           /* end of gap */
+	char w_top;	          /* Origin 0 top row of window */
+	char w_rows;              /* no. of rows of text in window */
 	int b_row;                /* cursor row */
 	int b_col;                /* cursor col */
 	char b_fname[NAME_MAX + 1]; /* filename */
 	char b_flags;             /* buffer flags */
 } buffer_t;
 
-typedef struct window_t
-{
-	struct buffer_t *w_bufp;   /* Buffer displayed in window */
-	char w_top;	    /* Origin 0 top row of window */
-	char w_rows;        /* no. of rows of text in window */
-	int w_row;          /* cursor row */
-	int w_col;          /* cursor col */
-} window_t;
-
 extern buffer_t *curbp;			/* current buffer */
-extern window_t *curwp;
 
 /*
  * Some compilers define size_t as a unsigned 16 bit number while
@@ -76,9 +68,9 @@ extern keymap_t *key_return;    /* Command key return */
 
 extern void fatal(char *);
 extern void msg(char *, ...);
-extern void display(window_t *);
+extern void display(void);
 extern void dispmsg(void);
-extern void modeline(window_t *);
+extern void modeline(buffer_t *);
 extern point_t lnstart(buffer_t *, point_t);
 extern point_t lncolumn(buffer_t *, point_t, int);
 extern point_t segstart(buffer_t *, point_t, point_t);
@@ -86,12 +78,11 @@ extern point_t segnext(buffer_t *, point_t, point_t);
 extern point_t upup(buffer_t *, point_t);
 extern point_t dndn(buffer_t *, point_t);
 extern char_t *get_key(keymap_t *, keymap_t **);
-extern int getinput(char *, char *, int, int);
 extern int growgap(buffer_t *, point_t);
 extern point_t movegap(buffer_t *, point_t);
 extern point_t pos(buffer_t *, char_t *);
 extern char_t *ptr(buffer_t *, point_t);
-extern int save(char *);
+extern void save(void);
 extern int insert_file(char *, int);
 extern void backsp(void);
 extern void bottom(void);
@@ -104,19 +95,14 @@ extern void lnend(void);
 extern void pgdown(void);
 extern void pgup(void);
 extern void quit(void);
-extern int yesno(int);
-extern void quit_ask(void);
-extern void redraw(void);
 extern void right(void);
 extern void top(void);
 extern void up(void);
-extern void savebuffer(void);
 extern void killtoeol(void);
 extern buffer_t* new_buffer(void);
-extern window_t *new_window();
 extern void search(void);
 point_t search_forward(buffer_t *, point_t, char *);
-extern void display_search_result(point_t, int, char *, char *);
+extern void display_search_result(point_t, char *, char *);
 extern void cut(void);
 extern void copy(void);
 extern void copy_cut(int);

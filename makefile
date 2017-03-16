@@ -27,7 +27,7 @@ gap$(O): gap.c header.h raw.h
 key$(O): key.c header.h raw.h
 	$(CC) $(CFLAGS) -c key.c
 
-search(O): search.c header.h raw.h
+search$(O): search.c header.h raw.h
 	$(CC) $(CFLAGS) -c search.c
 
 main$(O): main.c header.h raw.h

@@ -1,7 +1,5 @@
-/*
- * raw.c, Zepto Emacs, Public Domain, Hugh Barney, 2017, Derived from: Anthony's Editor January 93
- * emulate ncurses functions using raw ttyio and VT100 escape sequences
- */
+/* raw.c, Zepto Emacs, Public Domain, Hugh Barney, 2017, Derived from: Anthony's Editor January 93 *
+ * emulate ncurses functions using raw ttyio and VT100 escape sequences                            */
 
 #include <sys/ioctl.h>
 #include <termios.h>
@@ -19,11 +17,8 @@ void standend() { addstr(TEXT_COLOR); }
 char getch() { return fgetc(stdin); }
 void flushinp() { fflush(stdin); }
 
-/*
- * simple buffer structure to append all escape sequences and output
- * before we write it out in one go by calling refresh().
- * This avoids flickering.
- */
+/* Simple buffer structure to append all output to write in one go by calling refresh *
+ * This avoids flickering.                                                            */
 struct screen_buf {
 	char *buf;
 	int len;
@@ -33,7 +28,6 @@ struct screen_buf sb  = {NULL, 0};
 
 void sb_append(struct screen_buf *b, const char *s, int len) {
 	char *new = realloc(b->buf, b->len+len);
-
 	if (new == NULL) return;
 	memcpy(new + b->len,s,len);
 	b->buf = new;
@@ -46,17 +40,14 @@ void sb_free(struct screen_buf *b) {
 	b->len = 0;
 }
 
-void addstr(char *str)
-{
-	sb_append(&sb, str, strlen(str));
-}
-
 void addch(char c)
 {
 	char ch[2];
 	ch[0] = c;
 	sb_append(&sb, ch, 1);
 }
+
+void addstr(char *str) { sb_append(&sb, str, strlen(str)); }
 
 void refresh()
 {
@@ -70,7 +61,6 @@ void initscr()
 	ioctl(0, TIOCGWINSZ, &ws);
 	COLS = ws.ws_col;
 	LINES = ws.ws_row - 1;
-
 	addstr(RESET_TTY);
 	addstr(TEXT_COLOR);
 	clear();

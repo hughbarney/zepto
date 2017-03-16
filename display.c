@@ -12,10 +12,7 @@ point_t lnstart(buffer_t *bp, register point_t off)
 	return (bp->b_buf < p ? ++off : 0);
 }
 
-/*
- * Forward scan for start of logical line segment containing 'finish'.
- * A segment of a logical line corresponds to a physical screen line.
- */
+/* Forward scan for start of logical line segment containing 'finish' */
 point_t segstart(buffer_t *bp, point_t start, point_t finish)
 {
 	char_t *p;
@@ -86,11 +83,11 @@ point_t lncolumn(buffer_t *bp, point_t offset, int column)
 	return (offset);
 }
 
-void display(window_t *wp)
+void display()
 {
 	char_t *p;
 	int i, j, k;
-	buffer_t *bp = wp->w_bufp;
+	buffer_t *bp = curbp;
 	
 	/* find start of screen, handle scroll up off page or top of file  */
 	/* point is always within b_page and b_epage */
@@ -104,9 +101,9 @@ void display(window_t *wp)
 		/* if we scoll to EOF we show 1 blank line at bottom of screen */
 		if (pos(bp, bp->b_ebuf) <= bp->b_page) {
 			bp->b_page = pos(bp, bp->b_ebuf);
-			i = wp->w_rows - 1;
+			i = bp->w_rows - 1;
 		} else {
-			i = wp->w_rows - 0;
+			i = bp->w_rows - 0;
 		}
 		/* Scan backwards the required number of lines. */
 		while (0 < i--)
@@ -116,8 +113,8 @@ void display(window_t *wp)
 	addstr(HIDE_CURSOR);
 	clear();
 
-	move(wp->w_top, 0); /* start from top of window */
-	i = wp->w_top;
+	move(bp->w_top, 0); /* start from top of window */
+	i = bp->w_top;
 	j = 0;
 	bp->b_epage = bp->b_page;
 	
@@ -129,7 +126,7 @@ void display(window_t *wp)
 			bp->b_col = j;
 		}
 		p = ptr(bp, bp->b_epage);
-		if (wp->w_top + wp->w_rows <= i || bp->b_ebuf <= p) /* maxline */
+		if (bp->w_top + bp->w_rows <= i || bp->b_ebuf <= p) /* maxline */
 			break;
 		if (*p != '\r') {
 			if (isprint(*p) || *p == '\t' || *p == '\n') {
@@ -146,41 +143,38 @@ void display(window_t *wp)
 			if (j < 0)
 				j = 0;
 			++i;
-			//(*p == '\n' ? addch('\r') : move(i,j)); /* specific to rawio, not in ncurses version */
 			(*p == '\n' ? addch('\r') : addstr("\r\n"));
 		}
 		++bp->b_epage;
 	}
 
 	/* replacement for clrtobot() to bottom of window */
-	for (k=i; k < wp->w_top + wp->w_rows; k++) {
+	for (k=i; k < bp->w_top + bp->w_rows; k++) {
 		move(k, j); /* clear from very last char not start of line */
 		clrtoeol();
 		j = 0; /* thereafter start of line */
 	}
 
-	modeline(wp);
+	modeline(bp);
 	dispmsg();
 	move(bp->b_row, bp->b_col); /* set cursor */
 	addstr(SHOW_CURSOR);
 	refresh();
 }
 
-void modeline(window_t *wp)
+void modeline(buffer_t *bp)
 {
 	int i;
-	char lch, mch;
+	char mch;
 	
 	standout();
-	move(wp->w_top + wp->w_rows, 0);
-	lch = '=';
-	mch = ((wp->w_bufp->b_flags & B_MODIFIED) ? '*' : lch);
-
-	sprintf(temp, "%c%c Zepto: %c%c %s",  lch,mch,lch,lch, wp->w_bufp->b_fname);
+	move(bp->w_top + bp->w_rows, 0);
+	mch = ((bp->b_flags & B_MODIFIED) ? '*' : '=');
+	sprintf(temp, "=%c Zepto: == %s ", mch, bp->b_fname);
 	addstr(temp);
 
 	for (i = strlen(temp) + 1; i <= COLS; i++)
-		addch(lch);
+		addch('=');
 	standend();
 }
 

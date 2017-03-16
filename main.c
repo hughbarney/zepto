@@ -7,11 +7,9 @@ char_t *input;
 int msgflag;
 char msgline[TEMPBUF];
 char temp[TEMPBUF];
-
 keymap_t *key_return;
 keymap_t *key_map;
 buffer_t *curbp;
-window_t *curwp;
 
 int main(int argc, char **argv)
 {
@@ -24,15 +22,13 @@ int main(int argc, char **argv)
 	/* Save filename irregardless of load() success. */
 	strncpy(curbp->b_fname, argv[1], NAME_MAX);
 	curbp->b_fname[NAME_MAX] = '\0'; /* force truncation */
-	curwp = new_window(curbp);
 
-	if (!growgap(curbp, CHUNK))
-		fatal("Failed to allocate required memory.\n");
+	if (!growgap(curbp, CHUNK)) fatal("Failed to allocate required memory.\n");
 
 	key_map = keymap;
 
 	while (!done) {
-		display(curwp);
+		display();
 		input = get_key(key_map, &key_return);
 
 		if (key_return != NULL) {
@@ -85,16 +81,7 @@ buffer_t* new_buffer()
 	bp->b_gap = NULL;
 	bp->b_egap = NULL;
 	bp->b_fname[0] = '\0';
+	bp->w_top = 0;	
+	bp->w_rows = LINES - 2;
 	return bp;
-}
-
-window_t* new_window(buffer_t *bp)
-{
-	window_t *wp = (window_t *)malloc(sizeof(window_t));
-	
-	assert(wp != NULL);
-	wp->w_bufp = bp;
-	wp->w_top = 0;	
-	wp->w_rows = LINES - 2;
-	return wp;
 }

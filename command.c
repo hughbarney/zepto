@@ -16,36 +16,6 @@ void quit() { done = 1; }
 void copy() { copy_cut(FALSE); }
 void cut() { copy_cut(TRUE); }
 
-void quit_ask()
-{
-	if (curbp->b_flags & B_MODIFIED) {
-		mvaddstr(MSGLINE, 0, "file was modified; really exit (y/n) ?");
-		clrtoeol();
-		if (!yesno(0))
-			return;
-	}
-	quit();
-}
-
-/* flag = default answer, FALSE=n, TRUE=y */
-int yesno(int flag)
-{
-	int ch;
-
-	addstr(flag ? " y\b" : " n\b");
-	refresh();
-	ch = getch();
-	if (ch == '\r' || ch == '\n')
-		return (flag);
-	return (tolower(ch) == 'y');
-}
-
-void redraw()
-{
-	clear();
-	display(curwp);
-}
-
 void lnend()
 {
 	curbp->b_point = dndn(curbp, curbp->b_point);
@@ -62,7 +32,7 @@ void pgdown()
 
 void pgup()
 {
-	int i = curwp->w_rows;
+	int i = curbp->w_rows;
 	while (0 < --i) {
 		curbp->b_page = upup(curbp, curbp->b_page);
 		up();
@@ -72,10 +42,8 @@ void pgup()
 void insert()
 {
 	assert(curbp->b_gap <= curbp->b_egap);
-	if (curbp->b_gap == curbp->b_egap && !growgap(curbp, CHUNK))
-		return;
+	if (curbp->b_gap == curbp->b_egap && !growgap(curbp, CHUNK)) return;
 	curbp->b_point = movegap(curbp, curbp->b_point);
-
 	*curbp->b_gap++ = *input == '\r' ? '\n' : *input;
 	curbp->b_point = pos(curbp, curbp->b_egap);
 	curbp->b_flags |= B_MODIFIED;
@@ -100,12 +68,6 @@ void delete()
 	}
 }
 
-void savebuffer()
-{
-	save(curbp->b_fname);
-	refresh();
-}
-
 void killtoeol()
 {
 	/* point = start of empty line or last char in file */
@@ -128,8 +90,7 @@ void copy_cut(int cut)
 {
 	char_t *p;
 	/* if no mark or point == marker, nothing doing */
-	if (curbp->b_mark == NOMARK || curbp->b_point == curbp->b_mark)
-		return;
+	if (curbp->b_mark == NOMARK || curbp->b_point == curbp->b_mark) return;
 	if (scrap != NULL) {
 		free(scrap);
 		scrap = NULL;

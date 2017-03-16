@@ -13,7 +13,6 @@ keymap_t keymap[] = {
 	{"C-p                      ", "\x10", up },
 	{"C-h backspace            ", "\x08", backsp },
 	{"C-k kill-to-eol          ", "\x0B", killtoeol },
-	{"C-l                      ", "\x0C", redraw },
 	{"C-s search               ", "\x13", search },
 	{"C-v                      ", "\x16", pgdown },
 	{"C-w kill-region          ", "\x17", cut},
@@ -35,8 +34,8 @@ keymap_t keymap[] = {
 	{"backspace delete-left    ", "\x7f", backsp },
 	{"PgUp                     ", "\x1B\x5B\x35\x7E",pgup },
 	{"PgDn                     ", "\x1B\x5B\x36\x7E", pgdown },
-	{"C-x C-s save-buffer      ", "\x18\x13", savebuffer },  
-	{"C-x C-c exit             ", "\x18\x03", quit_ask },
+	{"C-x C-s save-buffer      ", "\x18\x13", save },  
+	{"C-x C-c exit             ", "\x18\x03", quit },
 	{"K_ERROR                  ", NULL, NULL }
 };
 
