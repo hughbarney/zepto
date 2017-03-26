@@ -1,4 +1,4 @@
-#Zepto Emacs
+# Zepto Emacs
 Smallest usable Editor in less than 1000 lines of C.
 
 Zepto Emacs is the smallest in a family of Emacs type editors inspired by MicroEmacs, Nano, Pico and my earlier project known as Perfect Emacs [1].
@@ -10,14 +10,14 @@ Zepto Emacs is the smallest in a family of Emacs type editors inspired by MicroE
 > A designer knows he has achieved perfection not when there is nothing left to add, but when there is nothing left to take away.
 > -- <cite>Antoine de Saint-Exupery</cite>
 
-##Goals of Zepto Emacs
+## Goals of Zepto Emacs
 
 * Provide just enough editing features to be able to make small changes to files
 * Act as an experimental platform for using VT100 / rawio instead of using the curses library
 * Smallest code footprint to demonstrate the buffer editor concept without the distraction of more advanced editor features.
 * Be easy to understand without requiring extensive study (to encourage further experimentation).
 
-##Why the name Zepto ?
+## Why the name Zepto ?
 The small Emacs naming scheme appears to use sub-unit prefixes in decending order with each further reduction of functionality. The Nano and Pico Emacs editors have been around for a while.
 
 * Nano means 10 to the power of minus 9
@@ -30,10 +30,10 @@ In Defining Atto as the lowest functional Emacs I have had to consider the essen
 
 Zepto has the smallest possible feature set to make a viable file editor. Zepto supports basic movement around the file, character insertion, deletion, backspace, line deletion, cut, copy, paste and the ability to search for a text string.  Although Zepto uses a subset of the Emacs keyboard command set; it cant really be considered to be an Emacs in that it does not support the editing of multiple files in multiple windows.
 
-##Derivation
+## Derivation
 Femto, Atto and Zepto is based on the public domain code of Anthony Howe's editor (commonly known as Anthony's Editor or AE, [2]).  Rather than representing a file as a linked list of lines, the AE Editor uses the concept of a Buffer-Gap [4,5,6].  A Buffer-Gap editor stores the file in a single piece of contiguous memory with some extra unused space known as the buffer gap.  On character insertion and deletion the gap is first moved to the current point.  A character deletion then extends the gap by moving the gap pointer back by 1 OR the gap is reduced by 1 when a character is inserted.  The Buffer-Gap technique is elegant and significantly reduces the amount of code required to load a file, modify it and redraw the display.  The proof of this is seen when you consider that Atto supports almost the same command set that Pico supports,  but Pico requires almost 17 times the amount of code.
 
-##Comparisons with Other Emacs Implementations
+## Comparisons with Other Emacs Implementations
 
     Editor         Binary   BinSize     KLOC  Files
 
@@ -52,12 +52,12 @@ Femto, Atto and Zepto is based on the public domain code of Anthony Howe's edito
     ue3.10         uemacs    171664    52.4K     16
     GNUEmacs       emacs   14632920   358.0k    186
 
-##Starting Zepto
+## Starting Zepto
 Zepto can only open one file at a time.  The filename to edit must be specified on the command line.
 
     $ zepto filename
 
-##Zepto Key Bindings
+## Zepto Key Bindings
     C-A   begining-of-line
     C-B   backward-character
     C-D   delete-char
@@ -93,14 +93,14 @@ Zepto can only open one file at a time.  The filename to edit must be specified 
     Down  Move to the next line
     Backspace delete caharacter on the left
 
-###Searching
+### Searching
     C-S enters the search prompt, where you type the search string
     BACKSPACE - will reduce the search string, any other character will extend it
     C-S at the search prompt will search forward, will wrap at end of the buffer
     ESC will escape from the search prompt and return to the point of the match
     C-G abort the search and return to point before the search started
 
-###Copying and moving
+### Copying and moving
     C-<spacebar> Set mark at current position
     ^W     Delete region
     ^Y     Yank back kill buffer at cursor
@@ -114,11 +114,11 @@ Generally, the procedure for copying or moving text is:
 2. Delete it (with ^W) or copy it (with M-W) into the kill buffer.
 3. Move the cursor to the desired location and yank it back (with ^Y).
 
-##Copying
+## Copying
   Zepto code is released to the public domain.
   hughbarney AT gmail.com 2017
 
-##References
+## References
     [1] Perfect Emacs - https://github.com/hughbarney/pEmacs
     [2] Anthony's Editor - https://github.com/hughbarney/Anthony-s-Editor
     [3] MG - https://github.com/rzalamena/mg
